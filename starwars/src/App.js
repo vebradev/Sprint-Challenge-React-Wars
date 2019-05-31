@@ -14,6 +14,7 @@ class App extends Component {
 
   componentDidMount() {
     this.getCharacters("https://swapi.co/api/people/");
+    this.getFilms("https://swapi.co/api/films/");
   }
 
   getCharacters = URL => {
@@ -23,10 +24,26 @@ class App extends Component {
       })
       .then(data => {
         console.log(data);
-        this.setState({ 
+        this.setState({
           starwarsChars: data.results,
           next: data.next,
-          previous: data.previous,
+          previous: data.previous
+        });
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
+  };
+
+  getFilms = URL => {
+    fetch(URL)
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        console.log(data);
+        this.setState({
+          films: data.results,
         });
       })
       .catch(err => {
@@ -35,16 +52,16 @@ class App extends Component {
   };
 
   previous = () => {
-    console.log('previous');
+    console.log("previous");
     if (this.state.previous !== null) {
-      this.getCharacters(this.state.previous)
+      this.getCharacters(this.state.previous);
     }
-  }
+  };
 
   next = () => {
-    console.log('next');
-    this.getCharacters(this.state.next)
-  }
+    console.log("next");
+    this.getCharacters(this.state.next);
+  };
 
   render() {
     return (
@@ -55,10 +72,7 @@ class App extends Component {
           films={this.state.films}
         />
 
-        <Pagination
-          previous={this.previous}
-          next={this.next}
-        />
+        <Pagination previous={this.previous} next={this.next} />
       </div>
     );
   }
