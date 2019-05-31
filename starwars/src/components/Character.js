@@ -8,6 +8,12 @@ const Character = props => {
       <p className="gender">{props.data.gender}</p>
       <p className="height">{props.data.height}</p>
       <p className="mass">{props.data.mass}</p>
+
+      <ul className="films">
+        {props.data.films.map(film => {
+          return <li>{film}</li>;
+        })}
+      </ul>
     </div>
   );
 };
