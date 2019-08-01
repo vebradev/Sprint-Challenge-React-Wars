@@ -1,38 +1,78 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import CharacterList from "./components/CharacterList";
+import Pagination from "./components/Pagination";
+import "./App.css";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      starwarsChars: []
+      starwarsChars: [],
+      films: []
     };
   }
 
   componentDidMount() {
-    this.getCharacters('https://swapi.co/api/people/');
+    this.getCharacters("https://swapi.co/api/people/");
+    this.getFilms("https://swapi.co/api/films/");
   }
 
   getCharacters = URL => {
-    // feel free to research what this code is doing.
-    // At a high level we are calling an API to fetch some starwars data from the open web.
-    // We then take that data and resolve it our state.
     fetch(URL)
       .then(res => {
         return res.json();
       })
       .then(data => {
-        this.setState({ starwarsChars: data.results });
+        console.log(data);
+        this.setState({
+          starwarsChars: data.results,
+          next: data.next,
+          previous: data.previous
+        });
       })
       .catch(err => {
         throw new Error(err);
       });
   };
 
+  getFilms = URL => {
+    fetch(URL)
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        console.log(data);
+        this.setState({
+          films: data.results,
+        });
+      })
+      .catch(err => {
+        throw new Error(err);
+      });
+  };
+
+  previous = () => {
+    console.log("previous");
+    if (this.state.previous !== null) {
+      this.getCharacters(this.state.previous);
+    }
+  };
+
+  next = () => {
+    console.log("next");
+    this.getCharacters(this.state.next);
+  };
+
   render() {
     return (
       <div className="App">
         <h1 className="Header">React Wars</h1>
+        <CharacterList
+          data={this.state.starwarsChars}
+          films={this.state.films}
+        />
+
+        <Pagination previous={this.previous} next={this.next} />
       </div>
     );
   }

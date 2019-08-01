@@ -26,11 +26,19 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] What is React JS and what problems does it try and solve? Support your answer with concepts introduced in class and from your personal research on the web.
 
+React JS is a JavaScript library for building interactive user interfaces from composable components. The main problem that had to be solved by React JS was slow & expensive DOM updating. React solves this problem without even having to reload the page with the help of virtual DOM.
+
 - [ ] What does it mean to _think_ in react?
+
+It means less headache for developers using this library: it's declarative, user interfaces are being rerendered instead of 'mutations' & it frees developers from having to think about state transitions.
 
 - [ ] Describe state.
 
+State is the heart of every React component - it's an object that determines how that component renders and behaves.
+
 - [ ] Describe props.
+
+Props (short for properties) is a way of passing data from component to component, basically from parent to child.
 
 ## Project Set Up
 
